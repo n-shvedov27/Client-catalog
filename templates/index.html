@@ -1,0 +1,63 @@
+<html>
+<head>
+
+</head>
+<body>
+{% if user %}
+    {{ user.username }} <a href="/logout">Logout</a><br>
+
+    {% for client in user.clients %}
+        <tr>
+            <img src="{{ client.photo_path }}" height="50px">
+            <td>{{ client.fio }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.email }}</td>
+
+
+        </tr>
+        <br>
+    {% endfor %}
+
+    <form method="POST" action="/create" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.fio.label }}
+        {{ form.fio(size=20) }}
+        {% if form.fio.errors %}
+            {% for error in form.fio.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+
+        {{ form.phone.label }}
+        {{ form.phone(size=20) }}
+        {% if form.phone.errors %}
+            {% for error in form.phone.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+
+        {{ form.email.label }}
+        {{ form.email(size=20) }}
+        {% if form.email.errors %}
+            {% for error in form.email.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+
+        {{ form.photo.label }}
+        {{ form.photo(size=20) }}
+        {% if form.photo.errors %}
+            {% for error in form.email.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+        <br> <input type="submit" value="Go">
+    </form>
+
+{% else %}
+    <p>u not login</p>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+{% endif %}
+</body>
+</html>
